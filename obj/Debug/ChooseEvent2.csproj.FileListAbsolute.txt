@@ -104,3 +104,5 @@ C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.dll
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.pdb
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.InitialModel.resources
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.csproj.GenerateResource.cache
+C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.CreateGigGenreTable.resources
+C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.OverrideConventionForGigsAndGenre.resources
