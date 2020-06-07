@@ -1,5 +1,6 @@
 ﻿using ChooseEvent2.Models;
 using ChooseEvent2.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace ChooseEvent2.Controllers
         {
             db = new ApplicationDbContext();
         }
-        // GET: Gigs
+      
+        [Authorize]
         public ActionResult Create()
         {
             var ViewModel = new GigsViewModel
@@ -24,6 +26,26 @@ namespace ChooseEvent2.Controllers
             };
             
             return View(ViewModel);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(GigsViewModel viewModel)
+        {
+            var gig = new Gig()
+            {
+                ArtistId = User.Identity.GetUserId(),
+                DateTime = viewModel.DateTime,
+                Genreid = viewModel.Genre,
+                Venue = viewModel.Venue
+            };
+
+            db.Gigs.Add(gig);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

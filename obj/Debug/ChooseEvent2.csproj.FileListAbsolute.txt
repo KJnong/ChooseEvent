@@ -108,3 +108,4 @@ C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.CreateGigGenreTable.r
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.OverrideConventionForGigsAndGenre.resources
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.PopulateGenreTable.resources
 C:\projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.CorrectedVenueSpelling.resources
+C:\projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.AddedArtistIdAndGenreId.resources
