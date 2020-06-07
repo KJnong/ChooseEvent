@@ -17,7 +17,7 @@ namespace ChooseEvent2.Models
 
         [Required]
         [StringLength(255)]
-        public string Vanue { get; set; }
+        public string Venue { get; set; }
 
         [Required]
         public Genre Genre { get; set; }
