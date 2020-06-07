@@ -106,3 +106,4 @@ C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.InitialModel.resource
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.csproj.GenerateResource.cache
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.CreateGigGenreTable.resources
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.OverrideConventionForGigsAndGenre.resources
+C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.PopulateGenreTable.resources
