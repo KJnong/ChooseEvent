@@ -22,3 +22,44 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Bootstrat override*/
+.navbar-inverse {
+    background-color: #3f6e3b;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color: #fff;
+    background-color: #2a4927;
+}
+
+.navbar-brand {
+    font-size: 28px;
+}
+
+body {
+    font-size: 20px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    font-size: 17px;
+    padding: 20px 17px;
+    border-radius: 14px;
+}
+
+.btn {
+    padding: 8px 28px;
+    border-radius: 12px;
+}

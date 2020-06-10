@@ -31,6 +31,7 @@ namespace ChooseEvent2.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(GigsViewModel viewModel)
         {
             if (!ModelState.IsValid)
