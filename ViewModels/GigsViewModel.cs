@@ -11,9 +11,11 @@ namespace ChooseEvent2.ViewModels
     public class GigsViewModel
     {
         [Required]
+        [FutureDate]
         public string Date { get; set; }
 
         [Required]
+        [ValidTime]
         public string Time { get; set; }
 
         [Required]
