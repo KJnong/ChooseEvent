@@ -18,7 +18,7 @@ namespace ChooseEvent2.Controllers
         }
         public ActionResult Index()
         {
-            var upcomingGigs = db.Gigs.Include(g => g.Artist).Where(g => g.DateTime > DateTime.Now);
+            var upcomingGigs = db.Gigs.Include(g => g.Artist).Include(g => g.Genre).Where(g => g.DateTime > DateTime.Now);
             return View(upcomingGigs);
         }
 

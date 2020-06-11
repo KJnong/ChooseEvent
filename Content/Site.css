@@ -63,3 +63,21 @@ body {
     padding: 8px 28px;
     border-radius: 12px;
 }
+
+/*Page-level styles*/
+
+.gigs{
+    list-style:none;
+}
+
+.gigs > li {
+    position:relative;
+    margin-bottom:20px;
+}
+
+.gigs > li .details{
+    position:absolute;
+    top:0;
+    left:70px;
+}
+
