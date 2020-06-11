@@ -34,10 +34,7 @@ namespace ChooseEvent2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(GigsViewModel viewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Create", viewModel);
-            }
+         
             var gig = new Gig()
             {
                 ArtistId = User.Identity.GetUserId(),

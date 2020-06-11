@@ -65,6 +65,10 @@ namespace ChooseEvent2.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

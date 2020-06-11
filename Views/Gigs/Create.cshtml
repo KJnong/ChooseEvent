@@ -9,6 +9,7 @@
 
 @using (Html.BeginForm("Create", "Gigs"))
 {
+    <p class="alert-info">All fields are <strong>Required</strong>.</p>
     @Html.AntiForgeryToken()
 
     <hr />
@@ -16,15 +17,15 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Date)
 
-        @Html.TextBoxFor(model => model.Date, new { @class = "form-control"})
-        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.Date, new { @class = "form-control", autofocus="autofocus", placeholder = "eg 1 Jan 2020"})
+        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger"})
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Time)
 
-        @Html.TextBoxFor(model => model.Time, new { @class = "form-control"})
-        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.Time, new { @class = "form-control", placeholder = "eg 23:00"})
+        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger"})
 
     </div>
 

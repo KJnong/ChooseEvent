@@ -109,3 +109,4 @@ C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.OverrideConventionFor
 C:\Projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.PopulateGenreTable.resources
 C:\projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.CorrectedVenueSpelling.resources
 C:\projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.AddedArtistIdAndGenreId.resources
+C:\projects\ChooseEvent2\obj\Debug\ChooseEvent2.Migrations.AddNameToApplicationUser.resources
