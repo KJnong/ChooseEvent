@@ -223,3 +223,10 @@ C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.csproj.CoreCompileInputs.cache
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.csproj.CopyComplete
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.dll
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.pdb
+C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddedAtendanceObject.resources
+C:\Projects\ChooseEvent\bin\System.Net.Http.Formatting.dll
+C:\Projects\ChooseEvent\bin\System.Web.Http.dll
+C:\Projects\ChooseEvent\bin\System.Web.Http.WebHost.dll
+C:\Projects\ChooseEvent\bin\System.Net.Http.Formatting.xml
+C:\Projects\ChooseEvent\bin\System.Web.Http.xml
+C:\Projects\ChooseEvent\bin\System.Web.Http.WebHost.xml
