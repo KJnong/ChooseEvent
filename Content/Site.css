@@ -106,10 +106,23 @@ body {
 .gigs > li .details .artist{
     display:block;
     font-weight:bold;
+    position:relative;
+}
+
+.gigs > li .details .artist .js-toggle-follow {
+    position:absolute;
+    top:0;
+    left:130px
 }
 
 .gigs > li .details .genre{
     font-size:16px;
-    margin-right:20px
+    position:relative
+}
+
+.gigs > li .details .genre .js-toggle-attendance{
+    position:absolute;
+    top:0;
+    left:130px
 }
 
