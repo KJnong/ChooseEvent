@@ -12,6 +12,7 @@ namespace ChooseEvent2.Models
         public DbSet<Gig> Gigs { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Relationship> Relationships { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -21,6 +22,16 @@ namespace ChooseEvent2.Models
         {
             modelBuilder.Entity<Attendance>()
                 .HasRequired(m => m.Gig).WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(t => t.Followers)
+                .WithRequired(t => t.Followee)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(t => t.Followees)
+                .WithRequired(t => t.Follower)
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);

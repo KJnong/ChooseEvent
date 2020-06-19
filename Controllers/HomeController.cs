@@ -1,4 +1,5 @@
 ﻿using ChooseEvent2.Models;
+using ChooseEvent2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +20,14 @@ namespace ChooseEvent2.Controllers
         public ActionResult Index()
         {
             var upcomingGigs = db.Gigs.Include(g => g.Artist).Include(g => g.Genre).Where(g => g.DateTime > DateTime.Now);
-            return View(upcomingGigs);
+
+            var DisplayGigsOptions = new IndexGigsViewModel
+            {
+                UpcomingGigs = upcomingGigs,
+                Authorized = User.Identity.IsAuthenticated
+            };
+
+            return View(DisplayGigsOptions);
         }
 
         public ActionResult About()
