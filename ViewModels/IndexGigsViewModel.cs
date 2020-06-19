@@ -12,5 +12,7 @@ namespace ChooseEvent2.ViewModels
         public IEnumerable<Gig> UpcomingGigs { get; set; }
 
         public bool Authorized { get; set; }
+
+        public string Heading { get; set; }
     }
 }

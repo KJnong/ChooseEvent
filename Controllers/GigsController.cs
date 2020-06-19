@@ -3,6 +3,7 @@ using ChooseEvent2.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,6 +27,27 @@ namespace ChooseEvent2.Controllers
             };
             
             return View(ViewModel);
+        }
+
+        [Authorize]
+        public ActionResult GigsAttending()
+        {
+            var UserId = User.Identity.GetUserId();
+            var gigsAttending = db.Attendances
+                .Where(a => a.AttendeeId == UserId)
+                .Select(a => a.Gig)
+                .Include(a => a.Artist)
+                .Include(a => a.Genre)
+                .ToList();
+
+
+            var Gigs = new IndexGigsViewModel
+            {
+                Authorized = User.Identity.IsAuthenticated,
+                UpcomingGigs = gigsAttending,
+                Heading = "Atending"
+            };
+            return View("Gigs", Gigs);
         }
 
 

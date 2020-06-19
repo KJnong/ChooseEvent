@@ -24,10 +24,11 @@ namespace ChooseEvent2.Controllers
             var DisplayGigsOptions = new IndexGigsViewModel
             {
                 UpcomingGigs = upcomingGigs,
-                Authorized = User.Identity.IsAuthenticated
+                Authorized = User.Identity.IsAuthenticated,
+                Heading = "Upcoming Gigs"
             };
 
-            return View(DisplayGigsOptions);
+            return View("Gigs",DisplayGigsOptions);
         }
 
         public ActionResult About()
