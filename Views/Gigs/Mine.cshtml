@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ChooseEvent2.Models.Gig>
+@{
+    ViewBag.Title = "Mine";
+}
+
+<h2>My Upcoming Gigs</h2>
+<br />
+<ul class="gigs">
+
+    @foreach (var gig in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @gig.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @gig.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @gig.Venue
+                </span>
+                <span class="genre">
+                    @gig.Genre.Name
+                </span>
+                <a href="@Url.Action("Edit", "Gigs", new { gig.Id})">Edit</a>
+            </div>
+
+        </li>
+    }
+
+</ul>
+

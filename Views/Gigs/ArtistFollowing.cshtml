@@ -1,0 +1,10 @@
+﻿@model ICollection<ChooseEvent2.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "ArtistFollowing";
+}
+
+@foreach (var artist in Model)
+{
+    <p>@artist</p>
+}
