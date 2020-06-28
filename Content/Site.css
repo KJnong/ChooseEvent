@@ -126,3 +126,10 @@ body {
     left:130px
 }
 
+.gigs > li .details .actions{
+    display:none
+}
+
+.gigs > li:hover .details .actions{
+    display:block
+}

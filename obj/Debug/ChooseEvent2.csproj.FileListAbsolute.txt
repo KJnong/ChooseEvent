@@ -231,3 +231,4 @@ C:\Projects\ChooseEvent\bin\System.Net.Http.Formatting.xml
 C:\Projects\ChooseEvent\bin\System.Web.Http.xml
 C:\Projects\ChooseEvent\bin\System.Web.Http.WebHost.xml
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddRelationshipTable.resources
+C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddedIsGigCancellled.resources

@@ -91,7 +91,9 @@ namespace ChooseEvent2.Controllers
         {
             var UserId = User.Identity.GetUserId();
             var gigs = db.Gigs
-                .Where(g => g.ArtistId == UserId && g.DateTime > DateTime.Now).Include(g => g.Genre).ToList();
+                .Where(g => g.ArtistId == UserId && g.DateTime > DateTime.Now)
+                .Include(g => g.Genre)
+                .ToList();
 
             return View(gigs);
         }
