@@ -13,6 +13,10 @@ namespace ChooseEvent2.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<UserNotification> UserNotifications { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -21,7 +25,7 @@ namespace ChooseEvent2.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attendance>()
-                .HasRequired(m => m.Gig).WithMany()
+                .HasRequired(m => m.Gig).WithMany(m => m.Attendances)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()
@@ -32,6 +36,11 @@ namespace ChooseEvent2.Models
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(t => t.Followees)
                 .WithRequired(t => t.Follower)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasRequired(n => n.User)
+                .WithMany(n => n.UserNotifications)
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);

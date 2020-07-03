@@ -22,10 +22,18 @@ namespace ChooseEvent2.Models
 
         public ICollection<Relationship> Followees { get; set; }
 
+        public ICollection<UserNotification> UserNotifications { get; set; }
+
         public ApplicationUser()
         {
             Followers = new Collection<Relationship>();
             Followees = new Collection<Relationship>();
+            UserNotifications = new Collection<UserNotification>();
+        }
+
+        public void Notify(Notification notification)
+        {
+            UserNotifications.Add(new UserNotification(this, notification));
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

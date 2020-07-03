@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -24,13 +25,13 @@ namespace ChooseEvent2.Controllers.Api
         {
             var UserId = User.Identity.GetUserId();
 
-            var gig = db.Gigs.Single(g => g.Id == Id && g.ArtistId == UserId);
+            var gig = db.Gigs.Include(a => a.Attendances.Select(g=>g.Attendee)).Single(g => g.Id == Id && g.ArtistId == UserId);
             if (gig.IsCancelled)
             {
                 return NotFound();
             }
 
-            gig.IsCancelled = true;
+            gig.Cancel();
 
             db.SaveChanges();
 

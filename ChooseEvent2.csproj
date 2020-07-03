@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -180,12 +183,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\GigsController.cs" />
     <Compile Include="Controllers\Api\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\NotificationsController.cs" />
+    <Compile Include="Controllers\Api\ReadController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Api\RelationshipsController.cs" />
     <Compile Include="DTOs\AttendanceDto.cs" />
+    <Compile Include="DTOs\GenreDto.cs" />
+    <Compile Include="DTOs\GigDto.cs" />
+    <Compile Include="DTOs\NotificationDto.cs" />
     <Compile Include="DTOs\RelationshipsDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +238,14 @@
     <Compile Include="Migrations\202006230503186_AddedIsGigCancellled.Designer.cs">
       <DependentUpon>202006230503186_AddedIsGigCancellled.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006281820278_AddNotification.cs" />
+    <Compile Include="Migrations\202006281820278_AddNotification.Designer.cs">
+      <DependentUpon>202006281820278_AddNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007010902291_updatedOriginalVanueSpelling.cs" />
+    <Compile Include="Migrations\202007010902291_updatedOriginalVanueSpelling.Designer.cs">
+      <DependentUpon>202007010902291_updatedOriginalVanueSpelling.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -237,7 +254,10 @@
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\Relationship.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
@@ -246,6 +266,8 @@
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -268,6 +290,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -305,6 +333,9 @@
     <Content Include="Views\Gigs\GigForm.cshtml" />
     <Content Include="Views\Gigs\ArtistFollowing.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
+    <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Scripts\moment.min.js.map" />
+    <Content Include="Scripts\moment-with-locales.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +383,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006230503186_AddedIsGigCancellled.resx">
       <DependentUpon>202006230503186_AddedIsGigCancellled.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006281820278_AddNotification.resx">
+      <DependentUpon>202006281820278_AddNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007010902291_updatedOriginalVanueSpelling.resx">
+      <DependentUpon>202007010902291_updatedOriginalVanueSpelling.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

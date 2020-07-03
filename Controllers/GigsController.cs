@@ -1,4 +1,4 @@
-﻿using ChooseEvent2.Models;
+﻿ using ChooseEvent2.Models;
 using ChooseEvent2.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -80,8 +80,6 @@ namespace ChooseEvent2.Controllers
             var artistFollowing = db.Relationships
                 .Where(a => a.FolloweeId == UserId).Select(a => a.Follower).ToList();
 
-
-            Console.WriteLine("Hellow ");
             return View(artistFollowing);
         }
 
@@ -124,12 +122,12 @@ namespace ChooseEvent2.Controllers
         public ActionResult Update(GigsViewModel viewModel)
         {
             var UserId = User.Identity.GetUserId();
-            var gig = db.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == UserId);
+            var gig = db.Gigs.Include(a => a.Attendances.Select(g => g.Attendee)).Single(g => g.Id == viewModel.Id && g.ArtistId == UserId);
 
+            var originalDateTime = gig.DateTime;
+            var originalVenue = gig.Venue;
 
-            gig.DateTime = viewModel.DateTime;
-            gig.Genreid = viewModel.Genre;
-            gig.Venue = viewModel.Venue;
+            gig.Update(viewModel, originalDateTime, originalVenue);
            
             db.SaveChanges();
 

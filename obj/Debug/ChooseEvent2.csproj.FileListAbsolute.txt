@@ -232,3 +232,8 @@ C:\Projects\ChooseEvent\bin\System.Web.Http.xml
 C:\Projects\ChooseEvent\bin\System.Web.Http.WebHost.xml
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddRelationshipTable.resources
 C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddedIsGigCancellled.resources
+C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.AddNotification.resources
+C:\Projects\ChooseEvent\obj\Debug\ChooseEvent2.Migrations.updatedOriginalVanueSpelling.resources
+C:\Projects\ChooseEvent\bin\AutoMapper.dll
+C:\Projects\ChooseEvent\bin\AutoMapper.pdb
+C:\Projects\ChooseEvent\bin\AutoMapper.xml
