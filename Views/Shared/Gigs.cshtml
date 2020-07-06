@@ -5,8 +5,19 @@
 
 <h2>@Model.Heading</h2>
 <br/>
-    <ul class="gigs">
 
+    @using (Html.BeginForm("Search", "Gigs"))
+    { 
+            <div class="form-group">
+                <div class="input-group" id="searchGigs">
+                    @Html.TextBoxFor(a => a.Search, new { @class = "form-control", placeholder = "Search by Arist/Genre/Venue" })
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                </div>
+            </div>
+        }
+    <ul class="gigs">
         @foreach (var gig in Model.UpcomingGigs)
         {
             <li>

@@ -31,6 +31,13 @@ namespace ChooseEvent2.Controllers
             return View("GigForm", ViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Search(IndexGigsViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.Search });
+
+        }
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

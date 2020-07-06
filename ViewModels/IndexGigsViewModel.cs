@@ -14,5 +14,7 @@ namespace ChooseEvent2.ViewModels
         public bool Authorized { get; set; }
 
         public string Heading { get; set; }
+
+        public string Search { get; set; }
     }
 }

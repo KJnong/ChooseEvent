@@ -17,17 +17,28 @@ namespace ChooseEvent2.Controllers
         {
             db = new ApplicationDbContext();
         }
-        public ActionResult Index()
+        public ActionResult Index(string query = null)
         {
-            var upcomingGigs = db.Gigs.Include(g => g.Artist)
+            var upcomingGigs = db.Gigs
+                .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .Where(g => g.DateTime > DateTime.Now && !g.IsCancelled);
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                upcomingGigs = upcomingGigs
+                    .Where(g =>
+                        g.Artist.Name.Contains(query) ||
+                        g.Genre.Name.Contains(query) ||
+                        g.Venue.Contains(query));
+            }
 
             var DisplayGigsOptions = new IndexGigsViewModel
             {
                 UpcomingGigs = upcomingGigs,
                 Authorized = User.Identity.IsAuthenticated,
-                Heading = "Upcoming Gigs"
+                Heading = "Upcoming Gigs",
+                Search = query
             };
 
             return View("Gigs",DisplayGigsOptions);
