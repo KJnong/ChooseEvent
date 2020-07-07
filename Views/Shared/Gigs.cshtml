@@ -56,7 +56,7 @@
                         {
                             if (gig.Attendances.Any(a => a.AttendeeId == Model.UserId))
                             {
-                                <button class="btn btn-info btn-sm pull-right ">Going</button>
+                                <button data-gig-id="@gig.Id" class="btn btn-info btn-sm pull-right js-toggle-notAttending">Going</button>
                             }
                             else
                             {
@@ -77,12 +77,26 @@
         $(document).ready(function() {
             $(".js-toggle-attendance").click(function (e) {
                 var button = $(e.target);
-                $.post("/api/attendances", { gigId: button.attr("data-gig-id")})
+                $.post("/api/attendances/attend", { gigId: button.attr("data-gig-id")})
                     .done(function () {
                         button
                             .removeClass("btn-defult")
                             .addClass("btn-info")
                             .text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+
+            $(".js-toggle-notAttending").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances/notAttending", { gigId: button.attr("data-gig-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-info")
+                            .addClass("btn-defult")
+                            .text("Going?");
                     })
                     .fail(function () {
                         alert("Something failed!");

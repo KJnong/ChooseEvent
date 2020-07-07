@@ -40,5 +40,20 @@ namespace ChooseEvent2.Controllers.Api
 
             return Ok();
         }
+
+        [HttpPost]
+        public IHttpActionResult NotAttending(AttendanceDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            var attendance = db.Attendances.Single(e => e.GigId == dto.gigId && e.AttendeeId == userId);
+
+            db.Attendances.Remove(attendance);
+            db.SaveChanges();
+
+            return Ok();
+        }
     }
+
 }

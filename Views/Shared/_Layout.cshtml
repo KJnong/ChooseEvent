@@ -102,7 +102,7 @@
 
     <script>
         $(document).ready(function () {
-            $.getJSON("/api/notifications", function (notifications) {
+            $.getJSON("/api/notifications/GetNewNotifications", function (notifications) {
                 if (notifications.length == 0)
                     return;
                
