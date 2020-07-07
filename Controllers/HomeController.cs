@@ -1,5 +1,7 @@
 ﻿using ChooseEvent2.Models;
 using ChooseEvent2.ViewModels;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,10 +21,14 @@ namespace ChooseEvent2.Controllers
         }
         public ActionResult Index(string query = null)
         {
+            var UserId = User.Identity.GetUserId();
+
             var upcomingGigs = db.Gigs
-                .Include(g => g.Artist)
+                .Include(g => g.Artist.Followees)
                 .Include(g => g.Genre)
+                .Include(g => g.Attendances)
                 .Where(g => g.DateTime > DateTime.Now && !g.IsCancelled);
+
 
             if (!String.IsNullOrEmpty(query))
             {
@@ -33,13 +39,17 @@ namespace ChooseEvent2.Controllers
                         g.Venue.Contains(query));
             }
 
+
             var DisplayGigsOptions = new IndexGigsViewModel
             {
                 UpcomingGigs = upcomingGigs,
                 Authorized = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Gigs",
-                Search = query
+                Search = query,
+                UserId = UserId
             };
+
+           
 
             return View("Gigs",DisplayGigsOptions);
         }

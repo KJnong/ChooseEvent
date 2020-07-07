@@ -19,5 +19,6 @@ namespace ChooseEvent2.Models
         [Key]
         [Column(Order = 2)]
         public string AttendeeId { get; set; }
+
     }
 }

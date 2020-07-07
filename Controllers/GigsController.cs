@@ -142,6 +142,33 @@ namespace ChooseEvent2.Controllers
             return RedirectToAction("Mine", "Gigs");
         }
 
+        public ActionResult Info(int Id)
+        {
+            var gig = db.Gigs.Include(g => g.Artist).Include(g => g.Attendances).Where(g => g.Id == Id).Single(g => g.Id == Id);
+
+            var UserId = User.Identity.GetUserId();
+            
+
+            var info = new InfoViewModel
+            {
+                Name = gig.Artist.Name,
+                Vanue = gig.Venue,
+                DateTime = gig.DateTime,
+            };
+
+            if (gig.Attendances.Any(a => a.AttendeeId == UserId && a.GigId == Id))
+            {
+                info.Attending = true;
+            }
+
+            if (db.Relationships.Any(f =>f.FollowerId == gig.ArtistId && f.FolloweeId == UserId))
+            {
+                info.Following = true;
+            }
+
+            return View(info);
+        }
 
     }
+
 }

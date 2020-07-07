@@ -16,5 +16,7 @@ namespace ChooseEvent2.ViewModels
         public string Heading { get; set; }
 
         public string Search { get; set; }
+
+        public string UserId { get; set; }
     }
 }

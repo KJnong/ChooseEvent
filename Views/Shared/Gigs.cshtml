@@ -31,10 +31,18 @@
                 </div>
                 <div class="details">
                     <span class="artist">
-                        @gig.Artist.Name
+                        <a href="@Url.Action("Info", "Gigs", new { gig.Id})">@gig.Artist.Name</a>
                         @if (Model.Authorized && !gig.IsCancelled)
                         {
-                            <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow">Follow</button>
+                            if (gig.Artist.Followees.Any(e => e.FolloweeId == Model.UserId))
+                            {
+                                <button data-user-id="@gig.ArtistId" class="btn btn-default btn-sm pull-right js-toggle-unfollow">Unfollow</button>
+                            }
+                            else
+                            {
+                                <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow">Follow</button>
+                            }
+
                         }
 
                         @if (gig.IsCancelled)
@@ -46,7 +54,13 @@
                         @gig.Genre.Name
                         @if (Model.Authorized && !gig.IsCancelled)
                         {
-                            <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                            if (gig.Attendances.Any(a => a.AttendeeId == Model.UserId))
+                            {
+                                <button class="btn btn-info btn-sm pull-right ">Going</button>
+                            }
+                            else
+                            {
+                            <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>}
                         }
 
                     </span>
@@ -77,10 +91,22 @@
 
             $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
-                $.post("/api/relationships", { FollowerId: button.attr("data-user-id") })
+                $.post("/api/relationships/follow", { FollowerId: button.attr("data-user-id") })
                     .done(function () {
                         button
                             .text("Unfollow");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+
+            $(".js-toggle-unfollow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/relationships/unfollow", { FollowerId: button.attr("data-user-id") })
+                    .done(function () {
+                        button
+                            .text("follow");
                     })
                     .fail(function () {
                         alert("Something failed!");

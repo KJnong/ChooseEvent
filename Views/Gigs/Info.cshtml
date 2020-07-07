@@ -1,0 +1,27 @@
+﻿@model ChooseEvent2.ViewModels.InfoViewModel
+
+@{
+    ViewBag.Title = "Info";
+}
+
+    <div>
+        <h2>
+            @Model.Name
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (Model.Following)
+                {
+                    <button class="btn btn-info">Following</button>
+                }
+            }
+
+        </h2>
+        
+        <p>Performing at @Model.Vanue on @Model.DateTime.ToString("dd MMM HH:mm")</p>
+        @if (User.Identity.IsAuthenticated && Model.Attending)
+        {
+            <p>You are going to this event.</p>
+        }
+
+
+    </div>

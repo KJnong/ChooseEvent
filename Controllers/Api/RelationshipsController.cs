@@ -40,5 +40,20 @@ namespace ChooseEvent2.Controllers.Api
 
             return Ok();
         }
+
+        [HttpPost]
+        public IHttpActionResult UnFollow(RelationshipsDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+
+             var relationship = db.Relationships.Single(e => e.FolloweeId == userId && e.FollowerId == dto.FollowerId);
+            
+           
+
+            db.Relationships.Remove(relationship);
+            db.SaveChanges();
+
+            return Ok();
+        }
     }
 }
