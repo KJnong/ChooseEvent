@@ -144,7 +144,13 @@ namespace ChooseEvent2.Controllers
 
         public ActionResult Info(int Id)
         {
-            var gig = db.Gigs.Include(g => g.Artist).Include(g => g.Attendances).Where(g => g.Id == Id).Single(g => g.Id == Id);
+            var gig = db.Gigs
+                    .Include(g => g.Artist)
+                    .Include(g => g.Attendances)
+                    .SingleOrDefault(g => g.Id == Id);
+
+            if (gig == null)
+                return HttpNotFound();
 
             var UserId = User.Identity.GetUserId();
             
