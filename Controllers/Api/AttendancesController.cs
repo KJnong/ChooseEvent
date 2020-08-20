@@ -41,13 +41,16 @@ namespace ChooseEvent2.Controllers.Api
             return Ok();
         }
 
-        [HttpPost]
-        public IHttpActionResult NotAttending(AttendanceDto dto)
+        [HttpDelete]
+        public IHttpActionResult CancelAttendence(int id)
         {
             var userId = User.Identity.GetUserId();
 
 
-            var attendance = db.Attendances.Single(e => e.GigId == dto.gigId && e.AttendeeId == userId);
+            var attendance = db.Attendances.Single(e => e.GigId == id && e.AttendeeId == userId);
+
+            if (attendance == null)
+                return NotFound();
 
             db.Attendances.Remove(attendance);
             db.SaveChanges();
