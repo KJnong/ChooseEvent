@@ -119,11 +119,7 @@ body {
     position:relative;
 }
 
-.gigs > li .details .artist .js-toggle-follow {
-    position:absolute;
-    top:0;
-    left:130px
-}
+
 
 .gigs > li .details .genre{
     font-size:16px;

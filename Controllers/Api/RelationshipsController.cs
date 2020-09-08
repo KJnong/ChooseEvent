@@ -41,12 +41,12 @@ namespace ChooseEvent2.Controllers.Api
             return Ok();
         }
 
-        [HttpPost]
-        public IHttpActionResult UnFollow(RelationshipsDto dto)
+        [HttpDelete]
+        public IHttpActionResult UnFollow(string id)
         {
             var userId = User.Identity.GetUserId();
 
-             var relationship = db.Relationships.Single(e => e.FolloweeId == userId && e.FollowerId == dto.FollowerId);
+             var relationship = db.Relationships.Single(e => e.FolloweeId == userId && e.FollowerId == id);
             
            
 

@@ -11,7 +11,9 @@ namespace ChooseEvent2
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app/app.js",
                         "~/Scripts/services/attendanceService.js",
-                        "~/Scripts/controllers/gigsController.js"));
+                        "~/Scripts/services/RelationshipService.js",
+                        "~/Scripts/controllers/gigsController.js",
+                        "~/Scripts/controllers/relationshipController.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",

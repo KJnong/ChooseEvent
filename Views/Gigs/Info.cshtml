@@ -4,25 +4,31 @@
     ViewBag.Title = "Info";
 }
 
-    <div>
-        <h2>
-            @Model.Name
-            @if (User.Identity.IsAuthenticated)
-            {
-                if (Model.Following)
-                {
-                    <button class="btn btn-info">Following</button>
-                }
-            }
-
-        </h2>
-        
-        <p>Performing at @Model.Vanue on @Model.DateTime.ToString("dd MMM HH:mm")</p>
-        @if (User.Identity.IsAuthenticated && Model.Attending)
+<div>
+    <h2>
+        @Model.Artist.Name
+        @if (User.Identity.IsAuthenticated)
         {
-            <p>You are going to this event.</p>
+            <button data-user-id="@Model.Artist.Id" class="btn @(Model.relationship.Any(f =>f.FollowerId == Model.Artist.Id && f.FolloweeId == Model.UserId)? "btn-info" : "btn-default") js-toggle-follow">Following</button>
         }
 
+    </h2>
 
-    </div>
+    <p>Performing at @Model.Vanue on @Model.DateTime.ToString("dd MMM HH:mm")</p>
+    @if (User.Identity.IsAuthenticated && Model.Attending)
+    {
+        <p>You are going to this event.</p>
+    }
+
+
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            RelationshipController.followToggle();
+        });
+    </script>
+}
 

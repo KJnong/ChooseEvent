@@ -153,13 +153,15 @@ namespace ChooseEvent2.Controllers
                 return HttpNotFound();
 
             var UserId = User.Identity.GetUserId();
-            
+
 
             var info = new InfoViewModel
             {
-                Name = gig.Artist.Name,
+                Artist = gig.Artist,
                 Vanue = gig.Venue,
                 DateTime = gig.DateTime,
+                relationship = db.Relationships.ToList(),
+                UserId = UserId
             };
 
             if (gig.Attendances.Any(a => a.AttendeeId == UserId && a.GigId == Id))
