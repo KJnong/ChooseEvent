@@ -1,4 +1,5 @@
 ﻿ using ChooseEvent2.Models;
+using ChooseEvent2.Repositories;
 using ChooseEvent2.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,10 +13,16 @@ namespace ChooseEvent2.Controllers
 {
     public class GigsController : Controller
     {
-        private ApplicationDbContext db;
+        private readonly GigRepository gigRepository;
+        private readonly ApplicationUserRepository applicationUserRepository;
+        private readonly GenreRepository genreRepository;
+        private readonly ApplicationDbContext db;
         public GigsController()
         {
             db = new ApplicationDbContext();
+            gigRepository = new GigRepository(db);
+            applicationUserRepository = new ApplicationUserRepository(db);
+            genreRepository = new GenreRepository(db);
         }
       
         [Authorize]
@@ -23,11 +30,9 @@ namespace ChooseEvent2.Controllers
         {
             var ViewModel = new GigsViewModel
             {
-                Genres = db.Genres.ToList(),
+                Genres = genreRepository.Genres(),
                 Heading = "Add Gig"
-
             };
-            
             return View("GigForm", ViewModel);
         }
 
@@ -35,7 +40,6 @@ namespace ChooseEvent2.Controllers
         public ActionResult Search(IndexGigsViewModel viewModel)
         {
             return RedirectToAction("Index", "Home", new { query = viewModel.Search });
-
         }
 
         [Authorize]
@@ -43,7 +47,6 @@ namespace ChooseEvent2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(GigsViewModel viewModel)
         {
-
             var gig = new Gig()
             {
                 ArtistId = User.Identity.GetUserId(),
@@ -55,7 +58,6 @@ namespace ChooseEvent2.Controllers
             db.Gigs.Add(gig);
             db.SaveChanges();
 
-
             return RedirectToAction("Mine", "Gigs");
         }
 
@@ -63,14 +65,8 @@ namespace ChooseEvent2.Controllers
         public ActionResult GigsAttending()
         {
             var UserId = User.Identity.GetUserId();
-            var gigsAttending = db.Attendances
-                .Where(a => a.AttendeeId == UserId)
-                .Select(a => a.Gig)
-                .Include(a => a.Artist)
-                .Include(a => a.Genre)
-                .ToList();
 
-
+            var gigsAttending = gigRepository.GetGigsUserAttending(UserId);
             var Gigs = new IndexGigsViewModel
             {
                 Authorized = User.Identity.IsAuthenticated,
@@ -83,32 +79,38 @@ namespace ChooseEvent2.Controllers
         [Authorize]
         public ActionResult ArtistFollowing()
         {
-            var UserId = User.Identity.GetUserId();
-            var artistFollowing = db.Relationships
-                .Where(a => a.FolloweeId == UserId).Select(a => a.Follower).ToList();
+            var userId = User.Identity.GetUserId();
 
+            var artistFollowing = applicationUserRepository.ArtistFollowing(userId);
             return View(artistFollowing);
         }
-
 
         [Authorize]
         public ActionResult Mine()
         {
-            var UserId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+
+            var gigs = UserGigsWithGenre(userId);
+            return View(gigs);
+        }
+
+        private List<Gig> UserGigsWithGenre(string userId)
+        {
             var gigs = db.Gigs
-                .Where(g => g.ArtistId == UserId && g.DateTime > DateTime.Now)
+                .Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
                 .Include(g => g.Genre)
                 .ToList();
 
-            return View(gigs);
+            return gigs;
         }
 
         [Authorize]
         public ActionResult Edit(int id)
         {
-            var UserId = User.Identity.GetUserId();
-            var gig = db.Gigs.Single(g => g.Id == id && g.ArtistId == UserId);
+            var userId = User.Identity.GetUserId();
 
+            var gig = gigRepository.UserGig(userId).Single(g => g.Id == id);
+                
             var ViewModel = new GigsViewModel
             {
                 Genres = db.Genres.ToList(),
@@ -128,9 +130,10 @@ namespace ChooseEvent2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(GigsViewModel viewModel)
         {
-            var UserId = User.Identity.GetUserId();
-            var gig = db.Gigs.Include(a => a.Attendances.Select(g => g.Attendee)).Single(g => g.Id == viewModel.Id && g.ArtistId == UserId);
+            var userId = User.Identity.GetUserId();
 
+            var gig = gigRepository.UserGigWithAttendee(userId).Single(g => g.Id == viewModel.Id);
+             
             var originalDateTime = gig.DateTime;
             var originalVenue = gig.Venue;
 
@@ -138,22 +141,17 @@ namespace ChooseEvent2.Controllers
            
             db.SaveChanges();
 
-
             return RedirectToAction("Mine", "Gigs");
         }
 
-        public ActionResult Info(int Id)
+        public ActionResult Info(int id)
         {
-            var gig = db.Gigs
-                    .Include(g => g.Artist)
-                    .Include(g => g.Attendances)
-                    .SingleOrDefault(g => g.Id == Id);
+            var gig = gigRepository.ArtistGigWithArtistAndAttendances(id);
 
             if (gig == null)
                 return HttpNotFound();
 
             var UserId = User.Identity.GetUserId();
-
 
             var info = new InfoViewModel
             {
@@ -164,7 +162,7 @@ namespace ChooseEvent2.Controllers
                 UserId = UserId
             };
 
-            if (gig.Attendances.Any(a => a.AttendeeId == UserId && a.GigId == Id))
+            if (gig.Attendances.Any(a => a.AttendeeId == UserId && a.GigId == id))
             {
                 info.Attending = true;
             }
@@ -176,7 +174,7 @@ namespace ChooseEvent2.Controllers
 
             return View(info);
         }
-
+ 
     }
 
 }
