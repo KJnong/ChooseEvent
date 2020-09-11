@@ -55,5 +55,10 @@ namespace ChooseEvent2.Repositories
                 .ToList();
             return gig;
         }
+
+        public void AddGig(Gig gig)
+        {
+            db.Gigs.Add(gig);
+        }
     }
 }
