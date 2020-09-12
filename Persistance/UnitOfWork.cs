@@ -7,13 +7,13 @@ using System.Web;
 
 namespace ChooseEvent2.Persistance
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext db;
 
-        public GigRepository gigRepository { get; private set; }
-        public ApplicationUserRepository applicationUserRepository { get; private set; }
-        public GenreRepository genreRepository { get; private set; }
+        public IGigRepository gigRepository { get; private set; }
+        public IApplicationUserRepository applicationUserRepository { get; private set; }
+        public IGenreRepository genreRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext _db)
         {
@@ -27,6 +27,6 @@ namespace ChooseEvent2.Persistance
         {
             db.SaveChanges();
         }
-        
+
     }
 }

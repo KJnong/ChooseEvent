@@ -7,12 +7,21 @@ using System.Data.Entity;
 
 namespace ChooseEvent2.Repositories
 {
-    public class GigRepository
+    public class GigRepository : IGigRepository
     {
         private readonly ApplicationDbContext db;
         public GigRepository(ApplicationDbContext _db)
         {
             db = _db;
+        }
+        public IEnumerable<Gig> UserGigWithGenre(string userId)
+        {
+            var gigs = db.Gigs
+                .Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
+                .Include(g => g.Genre)
+                .ToList();
+
+            return gigs;
         }
 
         public IEnumerable<Gig> UserGigWithAttendee(string userId)

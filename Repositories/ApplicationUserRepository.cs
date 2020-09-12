@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ChooseEvent2.Repositories
 {
-    public class ApplicationUserRepository
+    public class ApplicationUserRepository : IApplicationUserRepository
     {
         private readonly ApplicationDbContext db;
         public ApplicationUserRepository(ApplicationDbContext _db)

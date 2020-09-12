@@ -16,7 +16,7 @@ namespace ChooseEvent2.Controllers
     {
         
         private readonly ApplicationDbContext db;
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public GigsController()
         {
@@ -89,19 +89,10 @@ namespace ChooseEvent2.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var gigs = UserGigsWithGenre(userId);
+            var gigs = unitOfWork.gigRepository.UserGigWithGenre(userId);
             return View(gigs);
         }
 
-        private List<Gig> UserGigsWithGenre(string userId)
-        {
-            var gigs = db.Gigs
-                .Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
-                .Include(g => g.Genre)
-                .ToList();
-
-            return gigs;
-        }
 
         [Authorize]
         public ActionResult Edit(int id)

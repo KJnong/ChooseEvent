@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ChooseEvent2.Repositories
 {
-    public class GenreRepository
+    public class GenreRepository : IGenreRepository
     {
         private readonly ApplicationDbContext db;
         public GenreRepository(ApplicationDbContext _db)
