@@ -11,5 +11,6 @@ namespace ChooseEvent2.Repositories
         IEnumerable<Gig> UserGig(string userId);
         IEnumerable<Gig> UserGigWithAttendee(string userId);
         IEnumerable<Gig> UserGigWithGenre(string userId);
+        IEnumerable<Gig> GetGigsWithArtistFolowweesGenreAndAttendances(string userId);
     }
 }

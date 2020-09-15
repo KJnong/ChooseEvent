@@ -14,14 +14,11 @@ namespace ChooseEvent2.Controllers
 {
     public class GigsController : Controller
     {
-        
-        private readonly ApplicationDbContext db;
         private readonly IUnitOfWork unitOfWork;
 
         public GigsController()
         {
-            db = new ApplicationDbContext();
-            unitOfWork = new UnitOfWork(db);
+            unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
       
         [Authorize]
@@ -103,7 +100,7 @@ namespace ChooseEvent2.Controllers
                 
             var ViewModel = new GigsViewModel
             {
-                Genres = db.Genres.ToList(),
+                Genres = unitOfWork.genreRepository.Genres(),
                 Id = gig.Id,
                 Date = gig.DateTime.ToString("d MMM yyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
@@ -148,7 +145,7 @@ namespace ChooseEvent2.Controllers
                 Artist = gig.Artist,
                 Vanue = gig.Venue,
                 DateTime = gig.DateTime,
-                relationship = db.Relationships.ToList(),
+                relationship = unitOfWork.relationshipRepository.GetRelationships(),
                 UserId = UserId
             };
 
@@ -157,7 +154,7 @@ namespace ChooseEvent2.Controllers
                 info.Attending = true;
             }
 
-            if (db.Relationships.Any(f =>f.FollowerId == gig.ArtistId && f.FolloweeId == UserId))
+            if (unitOfWork.relationshipRepository.GetRelationships().Any(f =>f.FollowerId == gig.ArtistId && f.FolloweeId == UserId))
             {
                 info.Following = true;
             }

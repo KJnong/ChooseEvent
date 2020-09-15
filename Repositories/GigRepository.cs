@@ -65,6 +65,17 @@ namespace ChooseEvent2.Repositories
             return gig;
         }
 
+        public IEnumerable<Gig> GetGigsWithArtistFolowweesGenreAndAttendances(string userId)
+        {
+            var upcomingGigs = db.Gigs
+                .Include(g => g.Artist.Followees)
+                .Include(g => g.Genre)
+                .Include(g => g.Attendances)
+                .Where(g => g.DateTime > DateTime.Now && !g.IsCancelled);
+
+            return upcomingGigs;
+        }
+
         public void AddGig(Gig gig)
         {
             db.Gigs.Add(gig);

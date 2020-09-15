@@ -1,4 +1,5 @@
 ﻿using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using ChooseEvent2.ViewModels;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -14,20 +15,19 @@ namespace ChooseEvent2.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db;
+        private readonly IUnitOfWork unitOfWork;
 
         public HomeController()
         {
             db = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(db);
         }
         public ActionResult Index(string query = null)
         {
-            var UserId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
-            var upcomingGigs = db.Gigs
-                .Include(g => g.Artist.Followees)
-                .Include(g => g.Genre)
-                .Include(g => g.Attendances)
-                .Where(g => g.DateTime > DateTime.Now && !g.IsCancelled);
+            var upcomingGigs = unitOfWork.gigRepository.GetGigsWithArtistFolowweesGenreAndAttendances(userId);
+            
 
 
             if (!String.IsNullOrEmpty(query))
@@ -46,7 +46,7 @@ namespace ChooseEvent2.Controllers
                 Authorized = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Gigs",
                 Search = query,
-                UserId = UserId
+                UserId = userId
             };
 
            

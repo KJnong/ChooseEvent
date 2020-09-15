@@ -14,6 +14,10 @@ namespace ChooseEvent2.Persistance
         public IGigRepository gigRepository { get; private set; }
         public IApplicationUserRepository applicationUserRepository { get; private set; }
         public IGenreRepository genreRepository { get; private set; }
+        public IRelationshipRepository relationshipRepository { get; private set; }
+        public IAttendancesRepository attendancesRepository { get; private set; }
+
+        
 
         public UnitOfWork(ApplicationDbContext _db)
         {
@@ -21,6 +25,8 @@ namespace ChooseEvent2.Persistance
             gigRepository = new GigRepository(db);
             applicationUserRepository = new ApplicationUserRepository(db);
             genreRepository = new GenreRepository(db);
+            relationshipRepository = new RelationshipRepository(db);
+            attendancesRepository = new AttendancesRepository(db);
         }
 
         public void Complete()

@@ -1,5 +1,6 @@
 ﻿using ChooseEvent2.DTOs;
 using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace ChooseEvent2.Controllers.Api
     public class AttendancesController : ApiController
     {
         private ApplicationDbContext db;
+        private IUnitOfWork unitOfWork;
 
         public AttendancesController()
         {
             db = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(db);
         }
 
         [HttpPost]
@@ -25,7 +28,9 @@ namespace ChooseEvent2.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
-            if (db.Attendances.Any(e => e.GigId == dto.gigId && e.AttendeeId == userId))
+            if (unitOfWork.attendancesRepository
+                .GetAttendance()
+                .Any(e => e.GigId == dto.gigId && e.AttendeeId == userId))
             {
                 return BadRequest("The attendance already exists");
             }
@@ -47,13 +52,15 @@ namespace ChooseEvent2.Controllers.Api
             var userId = User.Identity.GetUserId();
 
 
-            var attendance = db.Attendances.Single(e => e.GigId == id && e.AttendeeId == userId);
+            var attendance = unitOfWork.attendancesRepository
+                .GetAttendance()
+                .Single(e => e.GigId == id && e.AttendeeId == userId);
 
             if (attendance == null)
                 return NotFound();
 
-            db.Attendances.Remove(attendance);
-            db.SaveChanges();
+            unitOfWork.attendancesRepository.RemoveAttendance(attendance);
+            unitOfWork.Complete();
 
             return Ok();
         }

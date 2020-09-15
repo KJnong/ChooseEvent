@@ -7,6 +7,8 @@ namespace ChooseEvent2.Persistance
         IApplicationUserRepository applicationUserRepository { get; }
         IGenreRepository genreRepository { get; }
         IGigRepository gigRepository { get; }
+        IRelationshipRepository relationshipRepository { get; }
+        IAttendancesRepository attendancesRepository { get; }
 
         void Complete();
     }
