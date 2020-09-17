@@ -76,6 +76,13 @@ namespace ChooseEvent2.Repositories
             return upcomingGigs;
         }
 
+        public IEnumerable<Gig> GetGigWithAttendances()
+        {
+            var gig = db.Gigs.Include(a => a.Attendances.Select(g => g.Attendee));
+
+            return gig;
+        }
+
         public void AddGig(Gig gig)
         {
             db.Gigs.Add(gig);

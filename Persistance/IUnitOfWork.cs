@@ -9,6 +9,7 @@ namespace ChooseEvent2.Persistance
         IGigRepository gigRepository { get; }
         IRelationshipRepository relationshipRepository { get; }
         IAttendancesRepository attendancesRepository { get; }
+        INotificationsRepository notificationsRepository { get; }
 
         void Complete();
     }

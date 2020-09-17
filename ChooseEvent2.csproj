@@ -269,7 +269,9 @@
     <Compile Include="Repositories\IAttendancesRepository.cs" />
     <Compile Include="Repositories\IGenreRepository.cs" />
     <Compile Include="Repositories\IGigRepository.cs" />
+    <Compile Include="Repositories\INotificationsRepository.cs" />
     <Compile Include="Repositories\IRelationshipRepository.cs" />
+    <Compile Include="Repositories\NotificationsRepository.cs" />
     <Compile Include="Repositories\RelationshipRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />

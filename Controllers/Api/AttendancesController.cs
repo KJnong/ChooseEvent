@@ -14,13 +14,11 @@ namespace ChooseEvent2.Controllers.Api
     [Authorize]
     public class AttendancesController : ApiController
     {
-        private ApplicationDbContext db;
         private IUnitOfWork unitOfWork;
 
         public AttendancesController()
         {
-            db = new ApplicationDbContext();
-            unitOfWork = new UnitOfWork(db);
+            unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPost]
@@ -40,8 +38,8 @@ namespace ChooseEvent2.Controllers.Api
                 AttendeeId = userId
             };
 
-            db.Attendances.Add(attendance);
-            db.SaveChanges();
+            unitOfWork.attendancesRepository.AddAttendance(attendance);
+            unitOfWork.Complete();
 
             return Ok();
         }

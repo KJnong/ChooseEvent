@@ -1,5 +1,6 @@
 ﻿using ChooseEvent2.DTOs;
 using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,22 +17,18 @@ namespace ChooseEvent2.Controllers.Api
     public class NotificationsController : ApiController
     {
         public ApplicationDbContext db;
+        public IUnitOfWork unitOfWork;
         public NotificationsController()
         {
             db = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(db);
         }
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
             var userId = User.Identity.GetUserId();
 
-            var notifications = db.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
-                .Select(un => un.Notification)
-                .Include(n => n.Gig.Artist)
-                .ToList();
-
-
-
+            var notifications = unitOfWork.notificationsRepository.GetNotifications(userId);
+            
             return notifications.Select(n => new NotificationDto() 
             { 
                 DateTime = n.DateTime,

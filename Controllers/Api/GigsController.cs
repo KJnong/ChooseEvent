@@ -1,4 +1,5 @@
 ﻿using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,11 @@ namespace ChooseEvent2.Controllers.Api
     [Authorize]
     public class GigsController : ApiController
     {
-        private ApplicationDbContext db;
+        private readonly IUnitOfWork unitOfWork;
 
         public GigsController()
         {
-            db = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpDelete]
@@ -25,7 +26,7 @@ namespace ChooseEvent2.Controllers.Api
         {
             var UserId = User.Identity.GetUserId();
 
-            var gig = db.Gigs.Include(a => a.Attendances.Select(g=>g.Attendee)).Single(g => g.Id == Id && g.ArtistId == UserId);
+            var gig = unitOfWork.gigRepository.GetGigWithAttendances().Single(g => g.Id == Id && g.ArtistId == UserId);
             if (gig.IsCancelled)
             {
                 return NotFound();
@@ -33,7 +34,7 @@ namespace ChooseEvent2.Controllers.Api
 
             gig.Cancel();
 
-            db.SaveChanges();
+            unitOfWork.Complete();
 
             return Ok();
 
