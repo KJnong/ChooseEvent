@@ -1,4 +1,5 @@
 ﻿using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace ChooseEvent2.Controllers.Api
     [Authorize]
     public class ReadController : ApiController
     {
-        public ApplicationDbContext db;
+        private readonly IUnitOfWork unitOfWork;
         public ReadController()
-        {
-            db = new ApplicationDbContext();
+        { 
+            unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPost]
@@ -26,13 +27,11 @@ namespace ChooseEvent2.Controllers.Api
 
             var userId = User.Identity.GetUserId();
 
-            var userNotifications = db.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
-                .ToList();
+            var userNotifications = unitOfWork.userNotificationRepository.GetUserNotifications(userId);
 
             userNotifications.ForEach(userNotification => userNotification.Read());
 
-            db.SaveChanges();
+            unitOfWork.Complete();
             return Ok();
         }
     }

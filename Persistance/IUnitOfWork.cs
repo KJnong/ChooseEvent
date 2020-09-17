@@ -10,6 +10,7 @@ namespace ChooseEvent2.Persistance
         IRelationshipRepository relationshipRepository { get; }
         IAttendancesRepository attendancesRepository { get; }
         INotificationsRepository notificationsRepository { get; }
+        IUserNotificationRepository userNotificationRepository { get; }
 
         void Complete();
     }

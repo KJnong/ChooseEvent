@@ -17,6 +17,7 @@ namespace ChooseEvent2.Persistance
         public IRelationshipRepository relationshipRepository { get; private set; }
         public IAttendancesRepository attendancesRepository { get; private set; }
         public INotificationsRepository notificationsRepository { get; private set; }
+        public IUserNotificationRepository userNotificationRepository { get; private set; }
 
 
 
@@ -30,6 +31,7 @@ namespace ChooseEvent2.Persistance
             relationshipRepository = new RelationshipRepository(db);
             attendancesRepository = new AttendancesRepository(db);
             notificationsRepository = new NotificationsRepository(db);
+            userNotificationRepository = new UserNotificationRepository(db);
         }
 
         public void Complete()
