@@ -19,5 +19,15 @@ namespace ChooseEvent2.Repositories
         {
             return db.Relationships.ToList();
         }
+
+        public void AddRelationship(Relationship relationship)
+        {
+            db.Relationships.Add(relationship);
+        }
+
+        public void RemoveRelationship(Relationship relationship)
+        {
+            db.Relationships.Remove(relationship);
+        }
     }
 }

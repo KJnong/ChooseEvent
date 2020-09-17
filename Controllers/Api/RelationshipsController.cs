@@ -1,5 +1,6 @@
 ﻿using ChooseEvent2.DTOs;
 using ChooseEvent2.Models;
+using ChooseEvent2.Persistance;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,11 @@ namespace ChooseEvent2.Controllers.Api
     [Authorize]
     public class RelationshipsController : ApiController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IUnitOfWork unitOfWork;
 
         public RelationshipsController()
         {
-            db = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPost]
@@ -25,7 +26,7 @@ namespace ChooseEvent2.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
-            if (db.Relationships.Any(e => e.FolloweeId == userId && e.FollowerId == dto.FollowerId))
+            if (unitOfWork.relationshipRepository.GetRelationships().Any(e => e.FolloweeId == userId && e.FollowerId == dto.FollowerId))
             {
                 return BadRequest("The relationships already exists");
             }
@@ -35,8 +36,8 @@ namespace ChooseEvent2.Controllers.Api
                 FollowerId = dto.FollowerId
             };
 
-            db.Relationships.Add(relationship);
-            db.SaveChanges();
+            unitOfWork.relationshipRepository.AddeRelationship(relationship);
+            unitOfWork.Complete();
 
             return Ok();
         }
@@ -46,12 +47,13 @@ namespace ChooseEvent2.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
-             var relationship = db.Relationships.Single(e => e.FolloweeId == userId && e.FollowerId == id);
-            
-           
+             var relationship = unitOfWork.relationshipRepository.GetRelationships().Single(e => e.FolloweeId == userId && e.FollowerId == id);
 
-            db.Relationships.Remove(relationship);
-            db.SaveChanges();
+
+
+
+            unitOfWork.relationshipRepository.RemoveRelationship(relationship);
+            unitOfWork.Complete();
 
             return Ok();
         }
