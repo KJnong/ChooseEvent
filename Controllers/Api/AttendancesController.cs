@@ -16,9 +16,9 @@ namespace ChooseEvent2.Controllers.Api
     {
         private IUnitOfWork unitOfWork;
 
-        public AttendancesController()
+        public AttendancesController(IUnitOfWork _unitOfWork)
         {
-            unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            unitOfWork = _unitOfWork;
         }
 
         [HttpPost]

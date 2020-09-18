@@ -7,7 +7,7 @@ namespace ChooseEvent2.Repositories
     {
         List<Relationship> GetRelationships();
         void RemoveRelationship(Relationship relationship);
-        void AddeRelationship(Relationship relationship);
+        void AddRelationship(Relationship relationship);
 
     }
     

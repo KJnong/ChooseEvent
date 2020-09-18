@@ -16,12 +16,10 @@ namespace ChooseEvent2.Controllers.Api
 
     public class NotificationsController : ApiController
     {
-        public ApplicationDbContext db;
         public IUnitOfWork unitOfWork;
-        public NotificationsController()
+        public NotificationsController(IUnitOfWork _unitOfWork)
         {
-            db = new ApplicationDbContext();
-            unitOfWork = new UnitOfWork(db);
+            unitOfWork = _unitOfWork;
         }
         public IEnumerable<NotificationDto> GetNewNotifications()
         {

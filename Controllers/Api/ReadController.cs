@@ -16,9 +16,9 @@ namespace ChooseEvent2.Controllers.Api
     public class ReadController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
-        public ReadController()
+        public ReadController(IUnitOfWork _unitOfWork)
         { 
-            unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            unitOfWork = _unitOfWork;
         }
 
         [HttpPost]

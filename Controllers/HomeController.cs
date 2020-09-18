@@ -14,14 +14,13 @@ namespace ChooseEvent2.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext db;
         private readonly IUnitOfWork unitOfWork;
 
-        public HomeController()
+        public HomeController(IUnitOfWork _unitOfWork)
         {
-            db = new ApplicationDbContext();
-            unitOfWork = new UnitOfWork(db);
+            unitOfWork = _unitOfWork;
         }
+     
         public ActionResult Index(string query = null)
         {
             var userId = User.Identity.GetUserId();

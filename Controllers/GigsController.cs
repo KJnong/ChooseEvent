@@ -16,9 +16,9 @@ namespace ChooseEvent2.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public GigsController()
+        public GigsController(IUnitOfWork _unitOfWork)
         {
-            unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            unitOfWork = _unitOfWork;
         }
       
         [Authorize]

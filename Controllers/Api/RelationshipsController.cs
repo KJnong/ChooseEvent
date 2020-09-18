@@ -16,9 +16,9 @@ namespace ChooseEvent2.Controllers.Api
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public RelationshipsController()
+        public RelationshipsController(IUnitOfWork _unitOfWork)
         {
-            unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            unitOfWork = _unitOfWork;
         }
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace ChooseEvent2.Controllers.Api
                 FollowerId = dto.FollowerId
             };
 
-            unitOfWork.relationshipRepository.AddeRelationship(relationship);
+            unitOfWork.relationshipRepository.AddRelationship(relationship);
             unitOfWork.Complete();
 
             return Ok();

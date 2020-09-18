@@ -14,11 +14,11 @@ namespace ChooseEvent2.Controllers.Api
     [Authorize]
     public class GigsController : ApiController
     {
-        private readonly IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
-        public GigsController()
+        public GigsController(IUnitOfWork _unitOfWork)
         {
-            unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            unitOfWork = _unitOfWork;
         }
 
         [HttpDelete]
